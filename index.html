@@ -1,1 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneha Baid | Application for People Experience & Delivery Partner @ Google DeepMind</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Tech -->
+    <!-- Application Structure Plan: The application is designed as a single-page interactive dashboard with a fixed left-side navigation for easy exploration. The structure prioritizes demonstrating direct role-fit over a simple chronological resume. The user is first presented with a high-level profile, then an interactive "Role Alignment" section that explicitly maps Sneha's experience to the three core responsibilities from the job description (Coaching, Operations, Insights). This directly answers the hiring manager's primary question of suitability. Subsequent sections provide a deeper, more traditional dive into her career journey, a visual matrix of her skills, and the full cover letter. This user flow is designed for efficiency, guiding the reviewer from a compelling summary to concrete, role-specific evidence, making a stronger case than a static document. -->
+    <!-- Visualization & Content Choices: 
+        1. Role Alignment: Info -> Job responsibilities vs. Sneha's experience. Goal -> Compare & demonstrate fit. Viz -> Interactive tabs/cards. Interaction -> Click to reveal specific, re-contextualized examples from her CV. Justification -> Directly maps qualifications to needs in a scannable, engaging format. Library -> Vanilla JS, Tailwind CSS.
+        2. Skills Matrix: Info -> Core P&C and technical skills. Goal -> Organize and visualize capabilities. Viz -> Radar chart for competencies, lists for technical skills. Interaction -> The chart provides an immediate visual summary of her strengths. Justification -> A radar chart offers a more holistic and impactful view of her balanced skill set than a simple list. Library -> Chart.js.
+        3. Career Journey: Info -> Chronological work history. Goal -> Inform and provide context. Viz -> Vertical timeline. Interaction -> Minimal, clean presentation for readability. Justification -> A timeline is the most intuitive format for chronological data. Library -> HTML/CSS/Tailwind.
+        All visualizations and interactions are designed to build a narrative of a candidate who is not just a recruiter, but a budding P&C generalist, perfectly suited for the role.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #3D405B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link.active {
+            background-color: #E07A5F;
+            color: #FFFFFF;
+            transform: translateX(4px);
+        }
+        .tab-button.active {
+            background-color: #3D405B;
+            color: #FFFFFF;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F7F4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <aside class="w-1/4 max-w-xs fixed top-0 left-0 h-screen bg-white shadow-lg p-6 flex-col justify-between hidden md:flex">
+        <div>
+            <div class="text-center mb-12">
+                <h1 class="text-2xl font-bold text-[#3D405B]">Sneha Baid</h1>
+                <p class="text-sm text-[#81B29A]">Applying for</p>
+                <p class="font-semibold text-[#E07A5F]">People Experience & Delivery Partner</p>
+            </div>
+            <nav id="desktop-nav" class="flex flex-col space-y-3">
+                <a href="#overview" class="nav-link p-3 rounded-lg font-medium text-gray-700 hover:bg-gray-100">Profile Overview</a>
+                <a href="#alignment" class="nav-link p-3 rounded-lg font-medium text-gray-700 hover:bg-gray-100">Role Alignment</a>
+                <a href="#journey" class="nav-link p-3 rounded-lg font-medium text-gray-700 hover:bg-gray-100">Career Journey</a>
+                <a href="#skills" class="nav-link p-3 rounded-lg font-medium text-gray-700 hover:bg-gray-100">Skills Matrix</a>
+                <a href="#letter" class="nav-link p-3 rounded-lg font-medium text-gray-700 hover:bg-gray-100">Cover Letter</a>
+            </nav>
+        </div>
+        <div class="text-xs text-center text-gray-400">
+            <p>&copy; 2025 Sneha Baid</p>
+            <p>Interactive portfolio</p>
+        </div>
+    </aside>
+
+    <main class="w-full md:ml-[25%] md:w-[75%] p-6 sm:p-8 md:p-12">
+        
+        <section id="overview" class="min-h-screen flex flex-col justify-center">
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <h2 class="text-4xl font-bold text-[#3D405B] mb-4">A People Professional for a New Era of Work</h2>
+                <p class="text-lg text-gray-600 mb-6">This is an interactive summary of my application for the People Experience & Delivery Partner role at Google DeepMind. It's designed to demonstrate not just what I've done, but how my skills in strategic talent management, operational delivery, and data-driven insights directly align with the challenges and opportunities of this role.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-[#F4F1DE] p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-[#3D405B]">Trusted Advisor</h3>
+                        <p class="text-sm text-gray-700 mt-2">Guiding leaders and managers on people best practices to build high-performing, inclusive teams.</p>
+                    </div>
+                    <div class="bg-[#E07A5F] p-6 rounded-lg text-white">
+                        <h3 class="font-bold text-xl">Operational Excellence</h3>
+                        <p class="text-sm mt-2">Executing and improving P&C initiatives and cyclical processes with efficiency and a focus on employee experience.</p>
+                    </div>
+                    <div class="bg-[#81B29A] p-6 rounded-lg text-white">
+                        <h3 class="font-bold text-xl">Data-Driven Insights</h3>
+                        <p class="text-sm mt-2">Leveraging analytics to identify trends, solve complex challenges, and inform strategic decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="alignment" class="min-h-screen flex flex-col justify-center">
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <h2 class="text-3xl font-bold text-[#3D405B] mb-2">Core Competency Alignment</h2>
+                <p class="text-gray-600 mb-8">This section directly maps my experience to the key responsibilities of the People Experience & Delivery Partner role. Select a competency below to see relevant examples from my career where I have demonstrated these capabilities.</p>
+                
+                <div class="flex flex-wrap gap-4 mb-8" id="tabs">
+                    <button class="tab-button px-6 py-2 rounded-full font-semibold transition-all duration-300" data-tab="coaching">Dynamic Coaching & Advising</button>
+                    <button class="tab-button px-6 py-2 rounded-full font-semibold transition-all duration-300" data-tab="operations">Operational Excellence</button>
+                    <button class="tab-button px-6 py-2 rounded-full font-semibold transition-all duration-300" data-tab="insights">Employee Experience Insights</button>
+                </div>
+
+                <div id="tab-content" class="bg-gray-50 p-6 rounded-lg min-h-[300px]">
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="min-h-screen flex flex-col justify-center">
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <h2 class="text-3xl font-bold text-[#3D405B] mb-8">Career Journey</h2>
+                <div class="relative border-l-2 border-[#E07A5F] ml-3">
+                    
+                    <div class="mb-10 ml-8">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#E07A5F] rounded-full -left-3 ring-4 ring-white"></span>
+                        <h3 class="flex items-center mb-1 text-xl font-semibold text-[#3D405B]">Resourcing Advisor – Talent Operations</h3>
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-500">Birmingham City University | 2024–Present</time>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                            <li>Provided dynamic coaching to leaders on hiring strategies and talent management.</li>
+                            <li>Advised on designing inclusive hiring processes and trained panels on values-based interviewing.</li>
+                            <li>Managed end-to-end operational delivery of talent initiatives within Oracle Recruit ATS.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-10 ml-8">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-[#E07A5F] rounded-full -left-3 ring-4 ring-white"></span>
+                        <h3 class="text-xl font-semibold text-[#3D405B]">Service Delivery Consultant</h3>
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-500">Manpower Group UK | 2023-2024</time>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                            <li>Acted as a trusted advisor to clients on high-volume and critical recruitment campaigns.</li>
+                            <li>Executed data-driven strategies, increasing candidate response rates by 40%.</li>
+                            <li>Led diversity recruitment campaigns, increasing representation by 35%.</li>
+                            <li>Drove process improvements by automating communications via Bullhorn ATS.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="min-h-screen flex flex-col justify-center">
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <h2 class="text-3xl font-bold text-[#3D405B] mb-2">Skills Matrix</h2>
+                <p class="text-gray-600 mb-8">A visual overview of my capabilities, blending core P&C competencies with essential technical skills. The chart highlights my balanced strengths in advising, execution, and analytics, which are crucial for the People Partner role.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-xl text-[#3D405B] mb-4">Technical Proficiencies</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700">HRIS / ATS Platforms</h4>
+                                <p class="text-gray-600">Oracle Recruit, Bullhorn ATS, Greenhouse (Familiar)</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700">Data & Analytics</h4>
+                                <p class="text-gray-600">Advanced Excel, Power BI (Basic), KPI Reporting</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700">Collaboration Tools</h4>
+                                <p class="text-gray-600">MS Teams, Zoom, Slack</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="letter" class="min-h-screen flex flex-col justify-center">
+            <div class="bg-white p-8 rounded-xl shadow-md">
+                <h2 class="text-3xl font-bold text-[#3D405B] mb-6">Cover Letter</h2>
+                <div class="prose max-w-none text-gray-700 space-y-4">
+                    <p>I am writing to express my enthusiastic interest in the People Experience & Delivery Partner role at Google DeepMind. The opportunity to contribute to a world-class employee experience at a company at the forefront of AI innovation is particularly compelling. My background as a trusted advisor in talent management and operational delivery has equipped me with a unique skill set to support the dynamic needs of your leaders and managers.</p>
+                    <p>In my current role, I serve as a <strong>trusted advisor</strong> to a broad range of hiring managers, providing dynamic coaching on hiring strategies, selection panels, and best practices. This experience has honed my ability to provide responsive guidance on complex people topics, from improving diversity outcomes to resolving nuanced interpersonal challenges. Furthermore, I have a proven track record of <strong>operational excellence</strong>, having independently managed and streamlined end-to-end processes, and contributed to the design and delivery of training programs for interview panels—a skill that I believe directly aligns with the role’s focus on building manager capability.</p>
+                    <p>My approach is consistently data-informed, which is essential for identifying systemic issues and developing effective solutions. I have leveraged data from ATS platforms to conduct <strong>in-depth analysis</strong>, share key themes, and drive process improvements. My ongoing professional development in Talent Analytics and my Lean Professional certification further demonstrate my commitment to using a data-driven approach to enhance the employee lifecycle. I am confident that my experience in identifying trends and making recommendations can be directly applied to analyzing broader employee experience data.</p>
+                    <p>The opportunity to support Google DeepMind’s mission, particularly its commitment to safety and ethics, is a powerful motivator. My experience in embedding <strong>equality, diversity, and inclusion (EDI)</strong> principles into core processes, combined with my proficiency in using AI-enabled tools, aligns with your values. I am eager to contribute my skills to your team and help cultivate a high-performing and inclusive culture.</p>
+                    <p>Thank you for your time and consideration. I look forward to the possibility of discussing this opportunity further.</p>
+                    <p>Sincerely,</p>
+                    <p>Sneha Baid</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const alignmentData = {
+        coaching: {
+            title: 'Dynamic Coaching & Advising',
+            points: [
+                'Served as a trusted advisor to leaders and managers on people best practices, including talent evaluation, interview techniques, and building inclusive teams.',
+                'Provided responsive coaching on complex people topics, from improving diversity outcomes to navigating nuanced team dynamics during the hiring process.',
+                'Contributed to building manager capability by designing and delivering training programs for interview panels on values-based interviewing.',
+                'Offered mentorship and guidance to stakeholders on having difficult conversations and navigating complex assessment processes.'
+            ]
+        },
+        operations: {
+            title: 'Operational Excellence',
+            points: [
+                'Executed and delivered key P&C initiatives and cyclical processes, including end-to-end recruitment, requisition management, and onboarding coordination.',
+                'Independently managed employee lifecycle processes within the talent sphere, ensuring a high-quality experience for both candidates and hiring managers.',
+                'Identified the need for, and took responsibility for driving, process improvement initiatives, such as automating communications and streamlining workflows in Bullhorn and Oracle ATS.',
+                'Conducted root-cause analysis on recurring issues in the hiring process to develop and implement lasting improvements.'
+            ]
+        },
+        insights: {
+            title: 'Employee Experience Insights',
+            points: [
+                'Conducted in-depth analysis of talent data from ATS platforms to identify trends, share key themes with leadership, and drive process improvements.',
+                'Applied a data-informed approach to identify systemic issues affecting hiring outcomes, such as a 35% increase in representation through targeted campaigns.',
+                'Utilized KPI-driven recruitment metrics to optimize campaign effectiveness and enhance hiring manager satisfaction.',
+                'Currently pursuing ongoing professional development in Talent Analytics and People Experience strategy to deepen my ability to provide data-backed insights.'
+            ]
+        }
+    };
+
+    const tabsContainer = document.getElementById('tabs');
+    const tabContentContainer = document.getElementById('tab-content');
+    const tabButtons = tabsContainer.querySelectorAll('.tab-button');
+
+    function updateTabContent(tabKey) {
+        const content = alignmentData[tabKey];
+        if (!content) return;
+        
+        let html = `<h3 class="text-xl font-bold text-[#3D405B] mb-4">${content.title}</h3>`;
+        html += '<ul class="list-disc pl-5 space-y-3 text-gray-700">';
+        content.points.forEach(point => {
+            html += `<li>${point}</li>`;
+        });
+        html += '</ul>';
+        
+        tabContentContainer.innerHTML = html;
+    }
+
+    tabsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-button')) {
+            const tabKey = e.target.dataset.tab;
+            
+            tabButtons.forEach(button => button.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            updateTabContent(tabKey);
+        }
+    });
+
+    if (tabButtons.length > 0) {
+        tabButtons[0].click();
+    }
+    
+    const ctx = document.getElementById('skillsChart').getContext('2d');
+    const skillsChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: [
+                'Stakeholder Advising', 
+                'Process Improvement', 
+                'Data Analysis', 
+                'Inclusion & Diversity', 
+                'Project Execution',
+                'Coaching & Mentoring'
+            ],
+            datasets: [{
+                label: 'Competency Level',
+                data: [90, 85, 80, 90, 88, 75],
+                backgroundColor: 'rgba(224, 122, 95, 0.2)',
+                borderColor: 'rgba(224, 122, 95, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgba(224, 122, 95, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(224, 122, 95, 1)'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: {
+                        color: 'rgba(61, 64, 91, 0.2)'
+                    },
+                    grid: {
+                        color: 'rgba(61, 64, 91, 0.2)'
+                    },
+                    pointLabels: {
+                        font: {
+                            size: 12,
+                            weight: '500'
+                        },
+                        color: '#3D405B'
+                    },
+                    ticks: {
+                        backdropColor: 'transparent',
+                        stepSize: 25,
+                        display: false
+                    },
+                    min: 0,
+                    max: 100
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+});
+</script>
+</body>
+</html>
 
